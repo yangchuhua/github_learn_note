@@ -1,3 +1,4 @@
+#########《莫烦PYTHON—GitHub教学》学习笔记###########
 
 cd /Users/chuhuayang/GitHub
 git config —global user.name “ych_git”  	#设置auther的名字
@@ -19,12 +20,21 @@ git diff	#查看修改后未add的A文件，与已add但没有commit的A文件�
 git diff —cached	#查看修改后add却未commit的A文件，与已add+commit的A文件有何不同
 git diff HEAD	#查看修改后未add的A文件，与已add+commit的A文件有何不同
 
-##commit 之间的往返
-#修改已commit的版本
+#####commit 之间的往返
+##修改已commit的版本
 touch 2.py
 git add 2.py
 git commit —amend —-no-edit	#将2.py的这次修改添加到上一次已经commit的版本（不编辑直接合并到上一次，结果是版本不增加）
+	##当多次修改又不希望版本太多时候，可以采用此方法，比如一整天修改十多次，可以放在同一个修改版本中，用日期命名。
 git log --oneline	#只列出版所有本号+自定义信息
 
-#reset 回到add之前
+##reset 回到add之前
+$git status -s
+M  git_learn_note.txt	#staged
+$git reset git_learn_note.txt	#从已add未commit，回到add之前的状态，可以继续修改然后再add
+$git status -s
+ M git_learn_note.txt	#unstage
+
+##reset 回到commit之前
+
 
