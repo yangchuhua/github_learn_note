@@ -12,5 +12,19 @@ git add .	#一次性添加GitHub文件夹下所有未被加入版本库的文件
 git commit -m “creat git_learn_note.txt”	#提交本次的改变，并在-m后自定义改变的信息
 
 git log	#查看修改记录
+git add git_learn_note.txt	#把这次修改添加 (add) 到可被提交 (commit) 的状态
+git commit -m "git_learn_note change 1"	#再提交 (commit) 这次的修改
 
- 
+git diff	#查看修改后未add的A文件，与已add但没有commit的A文件有何不同
+git diff —cached	#查看修改后add却未commit的A文件，与已add+commit的A文件有何不同
+git diff HEAD	#查看修改后未add的A文件，与已add+commit的A文件有何不同
+
+##commit 之间的往返
+#修改已commit的版本
+touch 2.py
+git add 2.py
+git commit —amend —-no-edit	#将2.py的这次修改添加到上一次已经commit的版本（不编辑直接合并到上一次，结果是版本不增加）
+git log --oneline	#只列出版所有本号+自定义信息
+
+#reset 回到add之前
+
