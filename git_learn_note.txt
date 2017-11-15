@@ -1,11 +1,16 @@
 
 cd /Users/chuhuayang/GitHub
-git config —global user.name “ych_git”  #设置auther的名字
-git config —global user.email “ych_git@qq.com”  #防止重名，使用邮箱地址独一无二
+git config —global user.name “ych_git”  	#设置auther的名字
+git config —global user.email “ych_git@qq.com”  	#防止重名，使用邮箱地址独一无二
 clear  #清屏，向上翻动仍然可以看到之前的操作
-git init  #重新初始化/Users/chuhuayang/GitHub/.git/中的现有Git存储库
-open .git  #查看这个文件夹
-touch git_learn_note.txt  #新建一个空txt文件
-git status  #查看版本库的状态(untracked files 可用 git add命令加入版本库中)
-git add git_learn_note.txt
+git init  	#重新初始化/Users/chuhuayang/GitHub/.git/中的现有Git存储库
+open .git  	#查看这个文件夹
+touch git_learn_note.txt  	#新建一个空txt文件
+git status  	#查看版本库的状态，课看到修改还没被提交的文件的信息
+git add git_learn_note.txt  	#讲文件加入版本库中(untracked files 可用 git add命令加入版本库中)
+git add .	#一次性添加GitHub文件夹下所有未被加入版本库的文件
+git commit -m “creat git_learn_note.txt”	#提交本次的改变，并在-m后自定义改变的信息
+
+git log	#查看修改记录
+
  
