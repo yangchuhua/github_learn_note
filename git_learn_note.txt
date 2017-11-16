@@ -177,8 +177,13 @@ $git commit -am "solve conflict"	#手动合并不同后，add+commit
 $git log --oneline --graph	##此时就可以看到conflict已经被解决了
 
 
+##将本地版本库推送到GitHub网上
+$git remote add origin https://github.com/yangchuhua/github_learn_note.git	##在网页上新建版本库后，第二栏中给出的
+$git push -u origin master  ## 推送本地 master 去 origin
+$git push -u origin dev   ## 推送本地 dev 去 origin
 
-
+####在本地修改后，推送本地更新到网页
+$git push -u origin master
 
 
 
