@@ -1,5 +1,5 @@
 #########《莫烦PYTHON—GitHub教学》学习笔记###########
-
+###2017-11-15
 cd /Users/chuhuayang/GitHub
 git config —global user.name “ych_git”  	#设置auther的名字
 git config —global user.email “ych_git@qq.com”  	#防止重名，使用邮箱地址独一无二
@@ -29,12 +29,68 @@ git commit —amend —-no-edit	#将2.py的这次修改添加到上一次已经c
 git log --oneline	#只列出版所有本号+自定义信息
 
 ##reset 回到add之前
-$git status -s
+$ git status -s
 M  git_learn_note.txt	#staged
-$git reset git_learn_note.txt	#从已add未commit，回到add之前的状态，可以继续修改然后再add
-$git status -s
+$ git reset git_learn_note.txt	#从已add未commit，回到add之前的状态，可以继续修改然后再add
+$ git status -s
  M git_learn_note.txt	#unstage
 
-##reset 回到commit之前
+
+
+#########2017-11-16
+########每个 commit 都有自己的 id 编号, HEAD 是一个指针, 指引当前的状态是在哪个 commit
+##reset 回到不同commit，用—hard 编号
+$git reset —-hard HEAD	#显示当前指针所在位置，
+HEAD is now at 1bf0694 回到从前
+$git log —-oneline	#显示所有版本号
+1bf0694 回到从前
+1546df9 learn log&diff
+2dea039 git_learn_note change 1
+444ece9 creat git_learn_note.txt
+54c3414 change 2
+a8e9f53 change 1
+f4ee17d change 1
+$ git reset --hard HEAD^	#回到倒数第二个版本,等价于git reset -—hard HEAD~1，git reset —-hard 1546df9
+HEAD is now at 1546df9 learn log&diff
+
+$git reset —-hard 444ece9	#回到版本 444ece9 creat git_learn_note.txt
+HEAD is now at 444ece9 creat git_learn_note.txt
+$git log --oneline
+444ece9 creat git_learn_note.txt
+54c3414 change 2
+a8e9f53 change 1
+f4ee17d change 1
+
+$git reflog	#查看最近做的所有 HEAD 的改动, 并选择想要挽救的 commit id
+444ece9 HEAD@{0}: reset: moving to 444ece9
+1bf0694 HEAD@{1}: reset: moving to HEAD
+1bf0694 HEAD@{2}: reset: moving to 1bf0694
+54c3414 HEAD@{3}: reset: moving to HEAD
+54c3414 HEAD@{4}: reset: moving to 54c3414
+1bf0694 HEAD@{5}: reset: moving to HEAD
+1bf0694 HEAD@{6}: commit (amend): 回到从前
+cd0515e HEAD@{7}: commit: 回到从前
+1546df9 HEAD@{8}: commit (amend): learn log&diff
+7fed343 HEAD@{9}: commit (amend): learn log&diff
+9e41999 HEAD@{10}: commit: learn log&diff
+2dea039 HEAD@{11}: commit: git_learn_note change 1
+444ece9 HEAD@{12}: commit: creat git_learn_note.txt
+54c3414 HEAD@{13}: commit: change 2
+a8e9f53 HEAD@{14}: commit: change 1
+f4ee17d HEAD@{15}: commit (initial): change 1
+$git reset —-hard 1bf0694	#回到future的版本
+HEAD is now at 1bf0694 回到从前
+$git log --oneline	#查看版本，发现已经挽救回来了
+1bf0694 回到从前
+1546df9 learn log&diff
+2dea039 git_learn_note change 1
+444ece9 creat git_learn_note.txt
+54c3414 change 2
+a8e9f53 change 1
+f4ee17d change 1
+
+
+
+
 
 
