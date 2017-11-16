@@ -1,11 +1,15 @@
 #########《莫烦PYTHON—GitHub教学》学习笔记###########
 ###2017-11-15
+##新开始一个项目前的设置
 cd /Users/chuhuayang/GitHub
 git config —global user.name “ych_git”  	#设置auther的名字
 git config —global user.email “ych_git@qq.com”  	#防止重名，使用邮箱地址独一无二
 clear  #清屏，向上翻动仍然可以看到之前的操作
 git init  	#重新初始化/Users/chuhuayang/GitHub/.git/中的现有Git存储库
 open .git  	#查看这个文件夹
+
+
+
 touch git_learn_note.txt  	#新建一个空txt文件
 git status  	#查看版本库的状态，课看到修改还没被提交的文件的信息
 git add git_learn_note.txt  	#讲文件加入版本库中(untracked files 可用 git add命令加入版本库中)
@@ -19,6 +23,8 @@ git commit -m "git_learn_note change 1"	#再提交 (commit) 这次的修改
 git diff	#查看修改后未add的A文件，与已add但没有commit的A文件有何不同
 git diff —cached	#查看修改后add却未commit的A文件，与已add+commit的A文件有何不同
 git diff HEAD	#查看修改后未add的A文件，与已add+commit的A文件有何不同
+
+$git commit -am “change 3”		##add并commit，一步实现
 
 #####commit 之间的往返
 ##修改已commit的版本
@@ -88,6 +94,107 @@ $git log --oneline	#查看版本，发现已经挽救回来了
 54c3414 change 2
 a8e9f53 change 1
 f4ee17d change 1
+
+
+###########branch 管理：master可以看做正式版本供用户使用，新建的branch则可以当做自己对正式版本的修改，修改过程中不会影响master中的版本，修改完毕后可以merge到master分支上，更新版本，使得用户使用稳定。
+
+$git branch 组会计划草稿	#新建分支“组会计划草稿”
+$git checkout -b 组会计划草稿		#新建分支并切换到新分支
+$git checkout -d 组会计划草稿		#删除分支,-D强行删除
+$git branch		#查看分支，有*的为当前所处的分支
+$git checkout master		#切换到分支master
+
+$git branch 组会计划草稿	#切换到分支组会计划草稿，可以open 3.py进行修改
+$git commit -am “分解任务”	#add并commit修改
+$git branch master	#切换回master，才能把修改merge到master
+$git merge —-no-ff -m “keep merge info” 组会计划草稿	#修改信息merge到master上时保留这个merge信息，—-no-ff：不采用默认的Fast forward；若不使用该参数$git merge 组会计划草稿，则不会保留这个merge信息，只保留修改信息
+$git log —-oneline -graph	#以图形方式展示版本变化
+*   486ce04 keep merge info
+|\
+| * f255937 分解任务
+|/
+* 5d341f4 11.27前必须完成的内容
+* 2b74d71 确定我下一次讲组会的时间
+* 1cec63d creat 3.py
+
+
+
+#####stash 暂存当前修改但不add+commit，做其他任务
+##背景：在dev写自己代码的时候，boss发来要求，需要解决一个bug，但是你又不想把这个修改commit进自己当前的dev版本记录中(自己写代码和老板要求的是同一个文件)
+$git stash
+Saved working directory and index state WIP on dev: 486ce04 keep merge info
+HEAD is now at 486ce04 keep merge info
+$git checkout -b boss	#新建分支处理boss给的任务
+$git commit -am "job from boss"
+$git checkout master
+$git merge --no-ff -m "merge boss job" boss
+$git log --oneline --graph
+##使用完毕后，根据需求可以删除boss分支
+##继续原来的工作
+$git checkout dev
+$git stash list	#查看自己的暂存
+stash@{0}: WIP on dev: 486ce04 keep merge info
+$git stash pop	#
+On branch dev
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   3.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (6426e439d2a24d1c6d5ff79fd8ec422de6206cd9)
+$git status -s
+ M 3.py	#与boss叫去做其他事情时一样了，又可以继续写代码了
+
+#####解决冲突
+###背景：当你在dev分支修改文件时，别人在master上修改了bug，这时当你将自己dev的修改merge到master时就出现了冲突，需要手动合并
+##查看不同分支的commit，找到不同，手动合并不同
+$git checkout master
+$git log —-oneline -graph 
+* 3d7796e change 4 in master  # 这一条 commit 和 dev 的不一样
+* 47f167e back to change 1 and add comment for 1.py
+* 904e1ba change 2
+* c6762a1 change 1
+* 13be9a7 create 1.py
+$git checkout dev
+$git log —-oneline -graph
+* f7d2e3a change 3 in dev    # 这一条 commit 和 master 的不一样
+* 47f167e back to change 1 and add comment for 1.py
+* 904e1ba change 2
+* c6762a1 change 1
+* 13be9a7 create 1.py
+##合并时是切换到master的，merge后，git 已经帮我们标记出来：文件中会显示出两个的不同
+##	a = 1
+##	# I went back to change 1
+##	<<<<<<< HEAD
+##	# edited in master
+##	=======
+##	# edited in dev
+##	>>>>>>> dev
+
+$git commit -am "solve conflict"	#手动合并不同后，add+commit
+$git log --oneline --graph	##此时就可以看到conflict已经被解决了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
